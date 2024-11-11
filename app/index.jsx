@@ -20,7 +20,7 @@ export default function Index() {
 
   // Conditional Redirect to /notes
   if (shouldRedirect) {
-    return <Redirect href="/(tab)/notes" />; // Redirecting to /notes route
+    return <Redirect href="/(tab)/notes" />; 
   }
 
   return (
