@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 const CustomButton = ({
@@ -13,20 +13,22 @@ const CustomButton = ({
       onPress={handlePress}
       activeOpacity={0.7}
       style={[
-        styles.container,
+        styles.buttonContainer,
         containerStyles,
-        isLoading && styles.loadingContainer
+        isLoading && styles.loading
       ]}
       disabled={isLoading}
     >
-      <Text style={[styles.text, textStyles]}>{title}</Text>
+      <Text style={[styles.buttonText, textStyles]}>
+        {title}
+      </Text>
 
       {isLoading && (
         <ActivityIndicator
           animating={isLoading}
           color="#fff"
           size="small"
-          style={styles.loader}
+          style={styles.loadingIndicator}
         />
       )}
     </TouchableOpacity>
@@ -34,23 +36,24 @@ const CustomButton = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#f97316', // orange-500
-    borderRadius: 24,  // equivalent to rounded-xl
-    minHeight: 62,     // min-h-[62px]
+  buttonContainer: {
+    backgroundColor: '#FFA500',
+    borderRadius: 15,
+    minHeight: 62,
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
   },
-  loadingContainer: {
-    opacity: 0.5, // Add reduced opacity when loading
+  buttonText: {
+    color: '#ffffff',
+    fontFamily: 'Poppins-SemiBold', // Adjust based on your font setup
+    fontSize: 18,
   },
-  text: {
-    color: '#fff', // text-primary (assuming white text for primary)
-    fontFamily: 'Poppins-SemiBold', // font-psemibold, or use the appropriate font family
-    fontSize: 18,   // text-lg (equivalent to 18px)
+  loading: {
+    opacity: 0.5,
   },
-  loader: {
-    marginLeft: 8,  // ml-2
+  loadingIndicator: {
+    marginLeft: 8,
   },
 });
 
