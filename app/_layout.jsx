@@ -1,12 +1,29 @@
 // app/_layout.jsx
-import React from 'react';
-import { Tabs } from 'expo-router';
 
-export default function MainLayout() {
+import { Redirect, Stack } from 'expo-router';
+import { useState, useEffect } from 'react';
+
+export default function Layout() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Placeholder logic for authentication status
+    // Replace this with your actual authentication check
+    const checkAuthStatus = async () => {
+      const userIsLoggedIn = false; // Replace with actual logic
+      setIsAuthenticated(userIsLoggedIn);
+    };
+
+    checkAuthStatus();
+  }, []);
+
+  if (!isAuthenticated) {
+    return <Redirect href="/auth/login" />;
+  }
+
   return (
-    <Tabs>
-      <Tabs.Screen name="(auth)" options={{ headerShown: false }} />
-      <Tabs.Screen name="(tab)" options={{ headerShown: false }} />
-    </Tabs>
+    <Stack screenOptions={{ headerShown: false }}>
+      {/* This will render any nested routes (like /tab/notes) when the user is authenticated */}
+    </Stack>
   );
 }
