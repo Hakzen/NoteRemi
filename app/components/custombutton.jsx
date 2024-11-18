@@ -1,4 +1,3 @@
-import React from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 const CustomButton = ({
@@ -12,11 +11,7 @@ const CustomButton = ({
     <TouchableOpacity
       onPress={handlePress}
       activeOpacity={0.7}
-      style={[
-        styles.buttonContainer,
-        containerStyles,
-        isLoading && styles.loading
-      ]}
+      style={[styles.buttonContainer, containerStyles, isLoading && styles.disabledButton]}
       disabled={isLoading}
     >
       <Text style={[styles.buttonText, textStyles]}>
@@ -28,7 +23,7 @@ const CustomButton = ({
           animating={isLoading}
           color="#fff"
           size="small"
-          style={styles.loadingIndicator}
+          style={styles.loader}
         />
       )}
     </TouchableOpacity>
@@ -37,23 +32,23 @@ const CustomButton = ({
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    backgroundColor: '#FFA500',
-    borderRadius: 15,
+    backgroundColor: '#FFA500', // orange
+    borderRadius: 20,
     minHeight: 62,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
   },
   buttonText: {
-    color: '#ffffff',
-    fontFamily: 'Poppins-SemiBold', // Adjust based on your font setup
+    color: '#fff', // primary text color
     fontSize: 18,
+    fontWeight: '600',
   },
-  loading: {
+  loader: {
+    marginLeft: 10,
+  },
+  disabledButton: {
     opacity: 0.5,
-  },
-  loadingIndicator: {
-    marginLeft: 8,
   },
 });
 

@@ -1,63 +1,65 @@
-import React from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { icons } from "./constant";
 
-const CustomButton = ({
-  title,
-  handlePress,
-  containerStyle,
-  textStyle,
-  isLoading,
-  disabled,
-}) => {
+const FormField = ({ title, value, placeholder, handleChangeText, otherStyles, ...props }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
-    <TouchableOpacity
-      onPress={handlePress}
-      activeOpacity={0.7}
-      style={[
-        styles.buttonContainer,
-        containerStyle,
-        (isLoading || disabled) && styles.disabledButton,
-      ]}
-      disabled={isLoading || disabled}
-      accessibilityRole="button"
-      accessibilityState={{ disabled: isLoading || disabled }}
-    >
-      <Text style={[styles.buttonText, textStyle]}>
-        {title}
-      </Text>
-      {isLoading && (
-        <ActivityIndicator
-          animating={isLoading}
-          color="#fff"
-          size="small"
-          style={styles.spinner}
+    <View style={[styles.container, otherStyles]}>
+      <Text style={styles.title}>{title}</Text>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          value={value}
+          placeholder={placeholder}
+          placeholderTextColor="#7B7B8B"
+          onChangeText={handleChangeText}
+          secureTextEntry={title === "Password" && !showPassword}
+          {...props}
         />
-      )}
-    </TouchableOpacity>
+        {title === "Password" && (
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+            <Image
+              source={!showPassword ? icons.eye : icons.eyeHide}
+              style={styles.eyeIcon}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        )}
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    backgroundColor: '#f97316', // Orange color
-    borderRadius: 15,
-    minHeight: 62,
-    justifyContent: 'center',
-    alignItems: 'center',
+  container: {
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 16,
+    color: '#B0B0B0',
+  },
+  inputContainer: {
+    width: '100%',
+    height: 60,
     flexDirection: 'row',
-    paddingHorizontal: 16,
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 15,
+    borderWidth: 1.5,
+    borderColor: '#D1D1D1',
   },
-  disabledButton: {
-    opacity: 0.5,
+  input: {
+    flex: 1,
+    fontSize: 16,
+    color: '#000',
   },
-  buttonText: {
-    color: '#ffffff', // White text color
-    fontWeight: '600',
-    fontSize: 18,
-  },
-  spinner: {
-    marginLeft: 8,
+  eyeIcon: {
+    width: 24,
+    height: 24,
   },
 });
 
-export default CustomButton;
+export default FormField;
